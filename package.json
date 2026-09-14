@@ -1,7 +1,7 @@
 {
   "name": "freedom-list-sync",
   "version": "0.1.0",
-  "description": "Sync external domain blocklists into Freedom custom blocklists.",
+  "description": "Sync domain blocklists from hosts files, plain domain lists, CSV, or JSON into Freedom.",
   "type": "module",
   "bin": {
     "freedom-list-sync": "./dist/cli/index.js"
