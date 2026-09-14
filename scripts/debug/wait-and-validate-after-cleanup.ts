@@ -2,31 +2,31 @@
  * Poll until GET /filter_lists/ recovers, then run the post-cleanup validation sequence:
  * auth status → inspect → small sharded dry-run → small live fixture → delete fixtures.
  *
- *   npx tsx scripts/wait-and-validate-after-cleanup.ts
- *   npx tsx scripts/wait-and-validate-after-cleanup.ts --timeout-minutes 90
+ *   npx tsx scripts/debug/wait-and-validate-after-cleanup.ts
+ *   npx tsx scripts/debug/wait-and-validate-after-cleanup.ts --timeout-minutes 90
  */
 import { writeFile, mkdtemp } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 
-import { FREEDOM_FILTER_LISTS_URL, FREEDOM_ORIGIN, FREEDOM_HOME_URL } from "../src/freedom/auth.js";
+import { FREEDOM_FILTER_LISTS_URL, FREEDOM_ORIGIN, FREEDOM_HOME_URL } from "../../src/freedom/auth.js";
 import {
   closeFreedomContext,
   openFreedomContext,
   probeAuthStatusDetails,
-} from "../src/freedom/client.js";
-import { formatAuthStatusReport } from "../src/freedom/auth.js";
-import { readCsrfToken } from "../src/freedom/csrf.js";
-import { HttpFreedomWriter, buildAddDomainsHeaders } from "../src/freedom/http-writer.js";
-import { HttpFreedomListCreator } from "../src/freedom/list-creator.js";
-import { getFilterLists } from "../src/freedom/reader.js";
+} from "../../src/freedom/client.js";
+import { formatAuthStatusReport } from "../../src/freedom/auth.js";
+import { readCsrfToken } from "../../src/freedom/csrf.js";
+import { HttpFreedomWriter, buildAddDomainsHeaders } from "../../src/freedom/http-writer.js";
+import { HttpFreedomListCreator } from "../../src/freedom/list-creator.js";
+import { getFilterLists } from "../../src/freedom/reader.js";
 import {
   buildShardedSyncPlan,
   discoverManagedShards,
   formatShardedPlanReport,
-} from "../src/sync/shards.js";
-import { runShardedAdditiveSync, verifyShardedAdditiveSync } from "../src/sync/sync.js";
-import { createLogger } from "../src/utils/logger.js";
+} from "../../src/sync/shards.js";
+import { runShardedAdditiveSync, verifyShardedAdditiveSync } from "../../src/sync/sync.js";
+import { createLogger } from "../../src/utils/logger.js";
 
 function timeoutMinutes(): number {
   const idx = process.argv.indexOf("--timeout-minutes");

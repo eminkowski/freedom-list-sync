@@ -1,8 +1,11 @@
 # freedom-list-sync
 
-A small CLI for syncing external domain lists into Freedom blocklists. It supports
-hosts files, plain domain lists, CSV, and JSON, and shards large lists across
-numbered Freedom lists when one list would get too big.
+`freedom-list-sync` syncs external domain blocklists into
+[Freedom](https://freedom.to), a website and app blocker for reducing
+distractions across devices.
+
+It supports hosts files, plain domain lists, CSV, and JSON, and shards large
+lists across numbered Freedom lists when one list would get too big.
 
 I built this after running into Freedom’s 50-site bulk-add workflow and the
 practical limits of very large custom blocklists.
@@ -391,19 +394,6 @@ observed failures at much larger sizes. Adjust it if needed:
 - Missing shards are created automatically via `POST /filter_lists/` during live
   sync. Dry-run still shows **Will create:** without calling Freedom.
 
-## After Locked Mode expires
-
-If an oversized blocklist broke `GET /filter_lists/`:
-
-1. Delete the oversized blocklist in the Freedom UI.
-2. Run:
-
-   ```bash
-   npx tsx scripts/wait-and-validate-after-cleanup.ts
-   ```
-
-3. If validation passes, run the full sharded dry-run before rebuilding.
-
 ## Development
 
 ```bash
@@ -427,6 +417,6 @@ logs.
 
 ## Disclaimer
 
-- Unofficial third-party project; not affiliated with Freedom.
-- Freedom’s private/internal endpoints may change.
-- Review planned changes with `--dry-run` before writing.
+This is an unofficial third-party tool and is not affiliated with or endorsed by
+Freedom. Freedom’s private/internal endpoints may change. Review planned changes
+with `--dry-run` before writing.
