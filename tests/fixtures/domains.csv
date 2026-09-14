@@ -1,0 +1,6 @@
+domain,category,notes
+facebook.com,social,main
+instagram.com,social,
+"cdn.example.com",ads,"quoted host"
+invalid,ads,skip me
+facebook.com,social,duplicate

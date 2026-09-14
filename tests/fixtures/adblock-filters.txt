@@ -1,0 +1,6 @@
+! Title: Example Adblock list
+||example.com^
+||ads.example.net^$third-party
+##.ad-banner
+example.com##.popup
+@@||allowed.example.com^

@@ -1,0 +1,6 @@
+# Ambiguous: some hosts lines and some plain domains
+0.0.0.0 a.com
+b.com
+c.com
+0.0.0.0 d.com
+e.com

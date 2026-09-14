@@ -1,0 +1,9 @@
+# Example configuration for freedom-list-sync
+# Command-line arguments work independently; this file is optional.
+
+lists:
+  - name: ExampleHosts
+    source: https://example.com/hosts
+    format: hosts
+    freedomList: General Blocking
+    mode: additive

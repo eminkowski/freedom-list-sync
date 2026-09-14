@@ -1,0 +1,8 @@
+# Mixed valid and invalid plain-domain lines
+example.com
+not a domain
+*.example.com
+https://example.org/path
+valid-sub.example.com
+example..com
+localhost

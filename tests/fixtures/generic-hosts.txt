@@ -1,0 +1,10 @@
+# Generic hosts-format fixture (no vendor-specific branding).
+# comment line
+
+0.0.0.0 example.com
+0.0.0.0 foo.example.com
+0.0.0.0 example.com
+127.0.0.1 bar.example.org # inline comment
+127.0.0.1 localhost
+::1 localhost
+0.0.0.0 localhost

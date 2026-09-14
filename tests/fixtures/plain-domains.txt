@@ -1,0 +1,5 @@
+# Plain domain list fixture
+example.com
+foo.example.org
+bar.net
+example.com

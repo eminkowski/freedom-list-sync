@@ -1,0 +1,48 @@
+{
+  "name": "freedom-list-sync",
+  "version": "0.1.0",
+  "description": "Sync domain blocklists from hosts files, plain domain lists, CSV, or JSON into Freedom.",
+  "type": "module",
+  "bin": {
+    "freedom-list-sync": "./dist/cli/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "clean": "rm -rf dist",
+    "dev": "tsx src/cli/index.ts",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "keywords": [
+    "freedom",
+    "blocklist",
+    "sync",
+    "domains",
+    "cli"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^14.0.0",
+    "csv-parse": "^7.0.2",
+    "playwright": "^1.55.0",
+    "yaml": "^2.8.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.35.0",
+    "@types/node": "^22.18.0",
+    "eslint": "^9.35.0",
+    "globals": "^16.4.0",
+    "prettier": "^3.6.0",
+    "tsx": "^4.20.0",
+    "typescript": "^5.9.0",
+    "typescript-eslint": "^8.43.0",
+    "vitest": "^3.2.0"
+  }
+}
