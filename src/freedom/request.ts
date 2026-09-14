@@ -69,9 +69,7 @@ export function isTimeoutError(error: unknown): boolean {
   }
   const message = maybe.message?.toLowerCase() ?? "";
   return (
-    message.includes("timeout") ||
-    message.includes("timed out") ||
-    message.includes("exceeded")
+    message.includes("timeout") || message.includes("timed out") || message.includes("exceeded")
   );
 }
 

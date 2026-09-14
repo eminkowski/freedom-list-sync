@@ -8,10 +8,7 @@ import {
   FreedomAuthenticationError,
   FreedomFilterListsUnavailableError,
 } from "../../freedom/errors.js";
-import {
-  closeFreedomContext,
-  requireAuthenticatedSession,
-} from "../../freedom/client.js";
+import { closeFreedomContext, requireAuthenticatedSession } from "../../freedom/client.js";
 import { HttpFreedomWriter, MAX_BATCH_SIZE } from "../../freedom/http-writer.js";
 import { HttpFreedomListCreator } from "../../freedom/list-creator.js";
 import { getFilterLists, resolveFilterList } from "../../freedom/reader.js";
@@ -55,15 +52,8 @@ export function registerSyncCommand(program: Command): void {
     .option("--source <url>", "Remote blocklist URL")
     .option("--source-file <path>", "Local blocklist file path")
     .requiredOption("--list <nameOrId>", "Logical Freedom blocklist base name or ID")
-    .option(
-      "--source-format <format>",
-      "hosts | domains | csv | json | auto",
-      "auto",
-    )
-    .option(
-      "--domain-column <nameOrIndex>",
-      "CSV domain column header name or 0-based index",
-    )
+    .option("--source-format <format>", "hosts | domains | csv | json | auto", "auto")
+    .option("--domain-column <nameOrIndex>", "CSV domain column header name or 0-based index")
     .option("--domain-field <name>", "JSON object field containing the domain")
     .option("--mode <mode>", "additive | mirror", "additive")
     .option(
@@ -103,9 +93,7 @@ export function registerSyncCommand(program: Command): void {
         const format = parseSourceFormat(options.sourceFormat);
         const parseOptions = buildParseOptions({
           ...(options.strict === true ? { strict: true } : {}),
-          ...(options.domainColumn !== undefined
-            ? { domainColumn: options.domainColumn }
-            : {}),
+          ...(options.domainColumn !== undefined ? { domainColumn: options.domainColumn } : {}),
           ...(options.domainField !== undefined ? { domainField: options.domainField } : {}),
         });
         const dryRun = options.dryRun === true;
@@ -189,9 +177,7 @@ export function registerSyncCommand(program: Command): void {
           });
 
           if (mode === "mirror" && plan.diff.removals.length > 0) {
-            logger.warn(
-              new MirrorRemovalsUnsupportedError(plan.diff.removals.length).message,
-            );
+            logger.warn(new MirrorRemovalsUnsupportedError(plan.diff.removals.length).message);
             logger.warn("");
           }
 
@@ -260,9 +246,7 @@ export function registerSyncCommand(program: Command): void {
           logger.info(`Logical target: ${baseName}`);
           logger.info(`Managed shards: ${formatNumber(verifiedShards.length)}`);
           logger.info(`Source domains: ${formatNumber(source.domains.length)}`);
-          logger.info(
-            `Present across shards: ${formatNumber(verification.presentAcrossShards)}`,
-          );
+          logger.info(`Present across shards: ${formatNumber(verification.presentAcrossShards)}`);
           logger.info(`Still missing: ${formatNumber(verification.stillMissing)}`);
           logger.info(`Only in Freedom: ${formatNumber(verification.onlyInFreedom)}`);
           logger.info(`Added this run: ${formatNumber(result.added)}`);

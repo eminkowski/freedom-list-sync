@@ -4,10 +4,7 @@ import path from "node:path";
 
 import { afterEach, describe, expect, it } from "vitest";
 
-import {
-  FreedomHttpError,
-  FreedomRequestTimeoutError,
-} from "../src/freedom/errors.js";
+import { FreedomHttpError, FreedomRequestTimeoutError } from "../src/freedom/errors.js";
 import { isRetryableWriterError } from "../src/freedom/http-writer.js";
 import type { FreedomFilterList } from "../src/freedom/types.js";
 import type { AddDomainsResult, FreedomWriter } from "../src/freedom/writer.js";

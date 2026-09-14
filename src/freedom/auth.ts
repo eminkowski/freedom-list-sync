@@ -13,12 +13,7 @@ export const CONFIG_DIR_NAME = "freedom-list-sync";
 export const AUTH_STATE_FILE = "auth.json";
 export const AUTH_FILE_VERSION = 1 as const;
 
-export type FreedomAuthStatus =
-  | "authenticated"
-  | "expired"
-  | "unavailable"
-  | "missing"
-  | "invalid";
+export type FreedomAuthStatus = "authenticated" | "expired" | "unavailable" | "missing" | "invalid";
 
 export interface FreedomAuthFileMeta {
   createdAt: string;
@@ -187,9 +182,7 @@ export async function loadAuthFile(): Promise<FreedomAuthFileV1> {
       throw new FreedomAuthFileInvalidError(authPath);
     }
     const createdAt =
-      asIsoString(record.createdAt) ??
-      asIsoString(record.savedAt) ??
-      new Date(0).toISOString();
+      asIsoString(record.createdAt) ?? asIsoString(record.savedAt) ?? new Date(0).toISOString();
     const lastValidatedAt = asIsoString(record.lastValidatedAt);
     const accountEmail =
       typeof record.accountEmail === "string" && record.accountEmail.includes("@")
@@ -334,12 +327,7 @@ export function formatAuthStatusReport(
 export class FreedomAuthExpiredError extends Error {
   constructor() {
     super(
-      [
-        "Freedom authentication has expired.",
-        "Run:",
-        "",
-        "  freedom-list-sync login",
-      ].join("\n"),
+      ["Freedom authentication has expired.", "Run:", "", "  freedom-list-sync login"].join("\n"),
     );
     this.name = "FreedomAuthExpiredError";
   }

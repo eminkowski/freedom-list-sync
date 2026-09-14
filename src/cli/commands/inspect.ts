@@ -1,10 +1,7 @@
 import type { Command } from "commander";
 
 import { isFreedomSessionCliError } from "../../freedom/auth.js";
-import {
-  closeFreedomContext,
-  requireAuthenticatedSession,
-} from "../../freedom/client.js";
+import { closeFreedomContext, requireAuthenticatedSession } from "../../freedom/client.js";
 import { FreedomFilterListsUnavailableError } from "../../freedom/errors.js";
 import { findFilterList, getFilterLists, listDomains } from "../../freedom/reader.js";
 import { createLogger } from "../../utils/logger.js";
@@ -75,9 +72,7 @@ export function registerInspectCommand(program: Command): void {
     });
 }
 
-function formatTable(
-  lists: Array<{ id: number; name: string; count_websites: number }>,
-): string {
+function formatTable(lists: Array<{ id: number; name: string; count_websites: number }>): string {
   const idWidth = Math.max(2, ...lists.map((list) => String(list.id).length));
   const nameWidth = Math.max(4, ...lists.map((list) => list.name.length));
   const countWidth = Math.max(8, ...lists.map((list) => formatNumber(list.count_websites).length));

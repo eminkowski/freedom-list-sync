@@ -32,10 +32,7 @@ export interface NormalizeOptions {
  * Normalize a candidate domain string.
  * Returns null when the value is not a usable domain.
  */
-export function normalizeDomain(
-  raw: string,
-  options: NormalizeOptions = {},
-): string | null {
+export function normalizeDomain(raw: string, options: NormalizeOptions = {}): string | null {
   let value = raw.trim().toLowerCase();
 
   if (!value || REJECTED_EXACT.has(value)) {

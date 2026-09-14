@@ -88,7 +88,10 @@ export class CsvSourceParser implements SourceParser {
       return emptyResult(this.format, rawLines.length, ignoredLineCount);
     }
 
-    const { columnIndex, startRow, headerIgnored } = resolveCsvColumn(dataRows, options.domainColumn);
+    const { columnIndex, startRow, headerIgnored } = resolveCsvColumn(
+      dataRows,
+      options.domainColumn,
+    );
     if (headerIgnored) {
       ignoredLineCount += 1;
     }
@@ -182,9 +185,7 @@ function resolveCsvColumn(
   );
 }
 
-function normalizeColumnOption(
-  value: string | number | undefined,
-): number | string | null {
+function normalizeColumnOption(value: string | number | undefined): number | string | null {
   if (value === undefined) {
     return null;
   }

@@ -44,11 +44,7 @@ function parseListEntry(entry: unknown, index: number): ConfigListEntry {
     ["hosts", "domains", "csv", "json", "auto"] as const,
     `lists[${index}].format`,
   );
-  const mode = optionalEnum(
-    record.mode,
-    ["additive", "mirror"] as const,
-    `lists[${index}].mode`,
-  );
+  const mode = optionalEnum(record.mode, ["additive", "mirror"] as const, `lists[${index}].mode`);
   const domainColumn = optionalString(record.domainColumn, `lists[${index}].domainColumn`);
   const domainField = optionalString(record.domainField, `lists[${index}].domainField`);
 

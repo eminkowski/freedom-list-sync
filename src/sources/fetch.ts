@@ -2,10 +2,7 @@ import { readFile, stat } from "node:fs/promises";
 import { createHash } from "node:crypto";
 import path from "node:path";
 
-import {
-  AmbiguousSourceFormatError,
-  UnsupportedSourceFormatError,
-} from "./errors.js";
+import { AmbiguousSourceFormatError, UnsupportedSourceFormatError } from "./errors.js";
 import { CsvSourceParser } from "./csv-source.js";
 import { HostsSourceParser } from "./hosts-source.js";
 import { JsonSourceParser, looksLikeJsonDocument } from "./json-source.js";

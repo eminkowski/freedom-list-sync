@@ -34,7 +34,7 @@ export function registerAuthCommands(program: Command): void {
       logger.info(
         formatAuthStatusReport(details.status, {
           ...(details.listsHealthy === false ? { listsHealthy: false } : {}),
-          ...(details.accountEmail ?? meta.accountEmail
+          ...((details.accountEmail ?? meta.accountEmail)
             ? { accountEmail: details.accountEmail ?? meta.accountEmail }
             : {}),
           ...(meta.lastValidatedAt ? { lastValidatedAt: meta.lastValidatedAt } : {}),

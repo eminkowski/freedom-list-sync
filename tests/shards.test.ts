@@ -16,16 +16,9 @@ import {
   theoreticalSourceChunks,
   unionManagedDomains,
 } from "../src/sync/shards.js";
-import {
-  runShardedAdditiveSync,
-  verifyShardedAdditiveSync,
-} from "../src/sync/sync.js";
+import { runShardedAdditiveSync, verifyShardedAdditiveSync } from "../src/sync/sync.js";
 
-function makeList(
-  id: number,
-  name: string,
-  domains: string[],
-): FreedomFilterList {
+function makeList(id: number, name: string, domains: string[]): FreedomFilterList {
   return {
     id,
     name,
@@ -127,10 +120,7 @@ describe("global domain union", () => {
       sourceDomains: ["example.com", "other.com"],
       baseName: "Social Media",
       shardSize: 3,
-      allLists: [
-        makeList(1, "Social Media", []),
-        makeList(2, "Social Media 2", ["example.com"]),
-      ],
+      allLists: [makeList(1, "Social Media", []), makeList(2, "Social Media 2", ["example.com"])],
     });
 
     expect(plan.domainsToAdd).toEqual(["other.com"]);

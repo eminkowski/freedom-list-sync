@@ -52,7 +52,12 @@ export function looksLikePlainDomainLine(line: string): boolean {
   if (!value || value.includes(" ") || value.includes("\t")) {
     return false;
   }
-  if (value.includes("://") || value.startsWith("|") || value.startsWith("*") || value.startsWith("/")) {
+  if (
+    value.includes("://") ||
+    value.startsWith("|") ||
+    value.startsWith("*") ||
+    value.startsWith("/")
+  ) {
     return false;
   }
   // Must look hostname-ish: labels separated by dots, no path.
@@ -71,7 +76,12 @@ export function detectUnsupportedSyntax(content: string): string | null {
   let urls = 0;
 
   for (const line of sample) {
-    if (/^\|\|/.test(line) || /\$[a-z0-9,~|-]+$/i.test(line) || line.includes("##") || line.includes("#@#")) {
+    if (
+      /^\|\|/.test(line) ||
+      /\$[a-z0-9,~|-]+$/i.test(line) ||
+      line.includes("##") ||
+      line.includes("#@#")
+    ) {
       adblock += 1;
       continue;
     }

@@ -1,10 +1,6 @@
 import type { BrowserContext } from "playwright";
 
-import {
-  FREEDOM_FILTER_LISTS_URL,
-  FREEDOM_HOME_URL,
-  FREEDOM_ORIGIN,
-} from "./auth.js";
+import { FREEDOM_FILTER_LISTS_URL, FREEDOM_HOME_URL, FREEDOM_ORIGIN } from "./auth.js";
 import { FREEDOM_REQUEST_TIMEOUT_MS, runFreedomRequest } from "./request.js";
 
 /** Lighter than /filter_lists/ — observed on dashboard loads and less likely to serialize huge custom lists. */
@@ -28,9 +24,7 @@ export interface SessionProbeOutcome {
  * When both lightweight signals are unreachable or inconclusive, returns
  * `unavailable` — not `expired` — so callers do not tell users to log in again.
  */
-export async function probeFreedomSession(
-  context: BrowserContext,
-): Promise<SessionProbeOutcome> {
+export async function probeFreedomSession(context: BrowserContext): Promise<SessionProbeOutcome> {
   const curated = await probeCuratedFilters(context);
   if (curated.status !== "inconclusive") {
     return curated.status === "authenticated"
@@ -47,10 +41,7 @@ export async function probeFreedomSession(
 
 async function probeCuratedFilters(
   context: BrowserContext,
-): Promise<
-  | { status: SessionProbeStatus; accountEmail?: string }
-  | { status: "inconclusive" }
-> {
+): Promise<{ status: SessionProbeStatus; accountEmail?: string } | { status: "inconclusive" }> {
   try {
     const response = await runFreedomRequest(
       (timeoutMs) =>

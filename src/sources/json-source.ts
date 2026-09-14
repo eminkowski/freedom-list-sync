@@ -35,7 +35,7 @@ export class JsonSourceParser implements SourceParser {
     if (!shape) {
       throw new Error(
         "Unsupported JSON shape. Expected a string array, " +
-          'an object with a domains/hosts array, or an array of objects with a domain field.',
+          "an object with a domains/hosts array, or an array of objects with a domain field.",
       );
     }
 
@@ -82,9 +82,7 @@ export class JsonSourceParser implements SourceParser {
 }
 
 type JsonShape =
-  | { kind: "string-array" }
-  | { kind: "object-array" }
-  | { kind: "wrapped-array"; key: string };
+  { kind: "string-array" } | { kind: "object-array" } | { kind: "wrapped-array"; key: string };
 
 export function looksLikeJsonDocument(content: string): boolean {
   const trimmed = content.trimStart();
@@ -102,10 +100,7 @@ function tryParseJson(content: string): unknown | undefined {
   }
 }
 
-function describeJsonShape(
-  value: unknown,
-  options: { forAutoDetect: boolean },
-): JsonShape | null {
+function describeJsonShape(value: unknown, options: { forAutoDetect: boolean }): JsonShape | null {
   if (Array.isArray(value)) {
     if (value.length === 0) {
       return { kind: "string-array" };
@@ -202,9 +197,11 @@ function readObjectField(
     if (!(domainField in record)) {
       throw new Error(
         `JSON object is missing field ${JSON.stringify(domainField)}. ` +
-          `Available fields: ${Object.keys(record)
-            .map((key) => JSON.stringify(key))
-            .join(", ") || "(none)"}`,
+          `Available fields: ${
+            Object.keys(record)
+              .map((key) => JSON.stringify(key))
+              .join(", ") || "(none)"
+          }`,
       );
     }
     const value = record[domainField];

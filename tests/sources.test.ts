@@ -10,7 +10,11 @@ import {
   UnsupportedSourceFormatError,
 } from "../src/sources/errors.js";
 import { detectSourceFormat, loadSourceFile, parseSourceContent } from "../src/sources/fetch.js";
-import { assertDomainCountLimit, assertSourceByteLimit, SourceTooLargeError } from "../src/sources/limits.js";
+import {
+  assertDomainCountLimit,
+  assertSourceByteLimit,
+  SourceTooLargeError,
+} from "../src/sources/limits.js";
 import { CsvSourceParser, parseCsvLine } from "../src/sources/csv-source.js";
 import { HostsSourceParser } from "../src/sources/hosts-source.js";
 import { JsonSourceParser } from "../src/sources/json-source.js";
@@ -94,11 +98,9 @@ describe("CsvSourceParser", () => {
 
   it("parses quoted fields that contain commas", () => {
     const parsed = new CsvSourceParser().parse(
-      [
-        "domain,notes",
-        '"facebook.com","social, network"',
-        '"instagram.com","mobile, app"',
-      ].join("\n"),
+      ["domain,notes", '"facebook.com","social, network"', '"instagram.com","mobile, app"'].join(
+        "\n",
+      ),
     );
     expect(parsed.domains).toEqual(["facebook.com", "instagram.com"]);
     expect(parseCsvLine('"facebook.com","social, network"')).toEqual([
@@ -159,9 +161,9 @@ describe("JsonSourceParser", () => {
       new JsonSourceParser().parse(`[{"category":"social"},{"category":"news"}]`),
     ).toThrow(/Pass --domain-field/i);
 
-    expect(() =>
-      new JsonSourceParser().parse(`[{"host":123}]`, { domainField: "host" }),
-    ).toThrow(/must be a string/i);
+    expect(() => new JsonSourceParser().parse(`[{"host":123}]`, { domainField: "host" })).toThrow(
+      /must be a string/i,
+    );
   });
 });
 

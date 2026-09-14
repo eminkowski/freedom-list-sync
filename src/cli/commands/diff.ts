@@ -1,10 +1,7 @@
 import type { Command } from "commander";
 
 import { isFreedomSessionCliError } from "../../freedom/auth.js";
-import {
-  closeFreedomContext,
-  requireAuthenticatedSession,
-} from "../../freedom/client.js";
+import { closeFreedomContext, requireAuthenticatedSession } from "../../freedom/client.js";
 import { FreedomFilterListsUnavailableError } from "../../freedom/errors.js";
 import { findFilterList, listDomains } from "../../freedom/reader.js";
 import {
@@ -27,15 +24,8 @@ export function registerDiffCommand(program: Command): void {
     .option("--source <url>", "Remote blocklist URL")
     .option("--source-file <path>", "Local blocklist file path")
     .requiredOption("--list <nameOrId>", "Freedom blocklist name or ID")
-    .option(
-      "--source-format <format>",
-      "hosts | domains | csv | json | auto",
-      "auto",
-    )
-    .option(
-      "--domain-column <nameOrIndex>",
-      "CSV domain column header name or 0-based index",
-    )
+    .option("--source-format <format>", "hosts | domains | csv | json | auto", "auto")
+    .option("--domain-column <nameOrIndex>", "CSV domain column header name or 0-based index")
     .option("--domain-field <name>", "JSON object field containing the domain")
     .option("--strict", "Fail if any meaningful source line cannot be parsed", false)
     .option("--verbose", "Print every addition and removal", false)
@@ -56,9 +46,7 @@ export function registerDiffCommand(program: Command): void {
         const format = parseSourceFormat(options.sourceFormat);
         const parseOptions = buildParseOptions({
           ...(options.strict === true ? { strict: true } : {}),
-          ...(options.domainColumn !== undefined
-            ? { domainColumn: options.domainColumn }
-            : {}),
+          ...(options.domainColumn !== undefined ? { domainColumn: options.domainColumn } : {}),
           ...(options.domainField !== undefined ? { domainField: options.domainField } : {}),
         });
         const sampleLimit = Number(options.limit);

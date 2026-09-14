@@ -9,7 +9,11 @@ import { writeFile, mkdtemp } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 
-import { FREEDOM_FILTER_LISTS_URL, FREEDOM_ORIGIN, FREEDOM_HOME_URL } from "../../src/freedom/auth.js";
+import {
+  FREEDOM_FILTER_LISTS_URL,
+  FREEDOM_ORIGIN,
+  FREEDOM_HOME_URL,
+} from "../../src/freedom/auth.js";
 import {
   closeFreedomContext,
   openFreedomContext,
@@ -67,10 +71,12 @@ async function main(): Promise<void> {
     const probe = await openFreedomContext({ headed: false });
     try {
       const ok = await filterListsHealthy(probe);
-      const status = (await probe.request.get(FREEDOM_FILTER_LISTS_URL, {
-        failOnStatusCode: false,
-        timeout: 60_000,
-      })).status();
+      const status = (
+        await probe.request.get(FREEDOM_FILTER_LISTS_URL, {
+          failOnStatusCode: false,
+          timeout: 60_000,
+        })
+      ).status();
       logger.info(`[poll] GET /filter_lists/ -> ${status}`);
       if (ok) {
         recovered = true;
@@ -95,9 +101,11 @@ async function main(): Promise<void> {
 
   // 1. auth status
   const auth = await probeAuthStatusDetails();
-  logger.info(formatAuthStatusReport(auth.status, {
-    ...(auth.listsHealthy === false ? { listsHealthy: false } : {}),
-  }));
+  logger.info(
+    formatAuthStatusReport(auth.status, {
+      ...(auth.listsHealthy === false ? { listsHealthy: false } : {}),
+    }),
+  );
   logger.info("");
 
   const context = await openFreedomContext({ headed: false });

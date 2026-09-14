@@ -10,11 +10,7 @@ import {
   isAuthenticationStatus,
   isRetryableFreedomStatus,
 } from "./errors.js";
-import {
-  FREEDOM_REQUEST_TIMEOUT_MS,
-  pathFromUrl,
-  runFreedomRequest,
-} from "./request.js";
+import { FREEDOM_REQUEST_TIMEOUT_MS, pathFromUrl, runFreedomRequest } from "./request.js";
 import type { AddDomainsResult, FreedomWriter } from "./writer.js";
 import type { Logger } from "../utils/logger.js";
 import { DEFAULT_BACKOFF_MS, withBackoff } from "../utils/sleep.js";
@@ -195,21 +191,15 @@ export class HttpFreedomWriter implements FreedomWriter {
     const prepared = prepareDomainsForWrite(domains);
 
     // Known transient HTTP statuses may retry. Timeouts must NOT — outcome is unknown.
-    return withBackoff(
-      async () => this.patchWithCsrfRefresh(listId, prepared),
-      {
-        delaysMs: this.backoffMs,
-        shouldRetry: (error) => isRetryableWriterError(error),
-        ...(this.sleep ? { sleep: this.sleep } : {}),
-        ...(this.onRetry ? { onRetry: this.onRetry } : {}),
-      },
-    );
+    return withBackoff(async () => this.patchWithCsrfRefresh(listId, prepared), {
+      delaysMs: this.backoffMs,
+      shouldRetry: (error) => isRetryableWriterError(error),
+      ...(this.sleep ? { sleep: this.sleep } : {}),
+      ...(this.onRetry ? { onRetry: this.onRetry } : {}),
+    });
   }
 
-  private async patchWithCsrfRefresh(
-    listId: number,
-    domains: string[],
-  ): Promise<AddDomainsResult> {
+  private async patchWithCsrfRefresh(listId: number, domains: string[]): Promise<AddDomainsResult> {
     let refreshed = false;
 
     while (true) {
@@ -347,11 +337,7 @@ export function isRetryableWriterError(error: unknown): boolean {
   }
 
   const code = maybe.code;
-  if (
-    code === "ECONNRESET" ||
-    code === "EAI_AGAIN" ||
-    code === "ENOTFOUND"
-  ) {
+  if (code === "ECONNRESET" || code === "EAI_AGAIN" || code === "ENOTFOUND") {
     return true;
   }
 
@@ -362,9 +348,7 @@ export function isRetryableWriterError(error: unknown): boolean {
 
 function looksLikeLoginHtml(text: string): boolean {
   const lower = text.toLowerCase();
-  return (
-    lower.includes("sign in") || lower.includes("log in") || lower.includes("<!doctype html")
-  );
+  return lower.includes("sign in") || lower.includes("log in") || lower.includes("<!doctype html");
 }
 
 function asOptionalNumber(value: unknown): number | undefined {

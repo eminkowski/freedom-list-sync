@@ -66,11 +66,7 @@ describe("interpretPatchResponse", () => {
 
   it("maps 400 to validation error without retry", async () => {
     await expect(
-      interpretPatchResponse(
-        1,
-        1,
-        mockResponse({ status: 400, ok: false, body: "bad request" }),
-      ),
+      interpretPatchResponse(1, 1, mockResponse({ status: 400, ok: false, body: "bad request" })),
     ).rejects.toBeInstanceOf(FreedomValidationError);
   });
 

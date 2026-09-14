@@ -7,11 +7,7 @@ import { afterEach, describe, expect, it } from "vitest";
 import type { FreedomFilterList } from "../src/freedom/types.js";
 import type { AddDomainsResult, FreedomWriter } from "../src/freedom/writer.js";
 import { createCheckpoint } from "../src/sync/checkpoint.js";
-import {
-  buildSyncPlan,
-  runAdditiveSync,
-  SyncInterruptedError,
-} from "../src/sync/sync.js";
+import { buildSyncPlan, runAdditiveSync, SyncInterruptedError } from "../src/sync/sync.js";
 
 class RecordingWriter implements FreedomWriter {
   readonly calls: string[][] = [];

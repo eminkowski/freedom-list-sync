@@ -11,20 +11,26 @@ async function main(): Promise<void> {
     const meta = await page.evaluate(() => {
       const csrf = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content");
       const csrfParam = document.querySelector('meta[name="csrf-param"]')?.getAttribute("content");
-      return { csrfPresent: Boolean(csrf), csrfLength: csrf?.length ?? 0, csrfParam, csrf: csrf ?? null };
+      return {
+        csrfPresent: Boolean(csrf),
+        csrfLength: csrf?.length ?? 0,
+        csrfParam,
+        csrf: csrf ?? null,
+      };
     });
 
     const cookies = await context.cookies(FREEDOM_ORIGIN);
     console.log(
       "cookie names:",
-      cookies.map((cookie) => cookie.name).sort().join(", "),
+      cookies
+        .map((cookie) => cookie.name)
+        .sort()
+        .join(", "),
     );
     console.log("meta csrf-param:", meta.csrfParam);
     console.log("meta csrf present:", meta.csrfPresent, "length:", meta.csrfLength);
 
-    const csrfCookie = cookies.find((cookie) =>
-      /csrf|xsrf|authenticity/i.test(cookie.name),
-    );
+    const csrfCookie = cookies.find((cookie) => /csrf|xsrf|authenticity/i.test(cookie.name));
 
     const attempts: Array<{ label: string; headers: Record<string, string> }> = [
       {

@@ -57,12 +57,7 @@ export function registerDebugNetworkCommand(program: Command): void {
     .option("--domain <domain>", "Test domain to mention in instructions", DEFAULT_TEST_DOMAIN)
     .option("--verbose", "Log more Freedom-origin requests (still sanitized)", false)
     .action(
-      async (options: {
-        action: string;
-        list: string;
-        domain: string;
-        verbose?: boolean;
-      }) => {
+      async (options: { action: string; list: string; domain: string; verbose?: boolean }) => {
         const logger = createLogger();
         const verbose = options.verbose === true;
         const action = parseDebugAction(options.action);
@@ -352,7 +347,10 @@ function printSummary(logger: Logger, exchanges: CapturedExchange[], testDomain:
     (exchange) =>
       exchange.likelyMutation &&
       (exchange.containsTestDomain ||
-        exchange.matchedBecause.some((reason) => reason.includes("filter") || reason.includes("list") || reason.includes("custom"))),
+        exchange.matchedBecause.some(
+          (reason) =>
+            reason.includes("filter") || reason.includes("list") || reason.includes("custom"),
+        )),
   );
 
   const followUps = exchanges.filter(

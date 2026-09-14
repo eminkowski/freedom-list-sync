@@ -1,15 +1,10 @@
 import type { BrowserContext } from "playwright";
 
-import {
-  FreedomListAmbiguousError,
-  FreedomListNotFoundError,
-} from "./auth.js";
+import { FreedomListAmbiguousError, FreedomListNotFoundError } from "./auth.js";
 import { ensureAuthenticated, fetchFilterLists } from "./client.js";
 import type { FreedomFilterList } from "./types.js";
 
-export async function getFilterLists(
-  context: BrowserContext,
-): Promise<FreedomFilterList[]> {
+export async function getFilterLists(context: BrowserContext): Promise<FreedomFilterList[]> {
   await ensureAuthenticated(context);
   return fetchFilterLists(context);
 }
@@ -22,10 +17,7 @@ export async function findFilterList(
   return resolveFilterList(lists, selector);
 }
 
-export function resolveFilterList(
-  lists: FreedomFilterList[],
-  selector: string,
-): FreedomFilterList {
+export function resolveFilterList(lists: FreedomFilterList[], selector: string): FreedomFilterList {
   const trimmed = selector.trim();
   if (!trimmed) {
     throw new FreedomListNotFoundError(selector);

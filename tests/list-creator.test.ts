@@ -1,9 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 
-import {
-  FreedomAuthenticationError,
-  FreedomValidationError,
-} from "../src/freedom/errors.js";
+import { FreedomAuthenticationError, FreedomValidationError } from "../src/freedom/errors.js";
 import {
   FREEDOM_CREATE_FILTER_LIST_URL,
   HttpFreedomListCreator,

@@ -56,13 +56,7 @@ export function isTransientError(error: unknown): boolean {
   };
 
   const status = maybe.status ?? maybe.statusCode;
-  if (
-    status === 429 ||
-    status === 500 ||
-    status === 502 ||
-    status === 503 ||
-    status === 504
-  ) {
+  if (status === 429 || status === 500 || status === 502 || status === 503 || status === 504) {
     return true;
   }
 

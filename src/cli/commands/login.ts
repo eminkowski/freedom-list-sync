@@ -1,15 +1,7 @@
 import type { Command } from "commander";
 
-import {
-  FREEDOM_LOGIN_URL,
-  getAuthStatePath,
-  saveAuthStateFile,
-} from "../../freedom/auth.js";
-import {
-  closeFreedomContext,
-  openFreedomContext,
-  probeAuthStatus,
-} from "../../freedom/client.js";
+import { FREEDOM_LOGIN_URL, getAuthStatePath, saveAuthStateFile } from "../../freedom/auth.js";
+import { closeFreedomContext, openFreedomContext, probeAuthStatus } from "../../freedom/client.js";
 import { probeFreedomSession } from "../../freedom/session-probe.js";
 import { createLogger } from "../../utils/logger.js";
 

@@ -1,7 +1,4 @@
-import {
-  FreedomHttpError,
-  FreedomRequestTimeoutError,
-} from "../freedom/errors.js";
+import { FreedomHttpError, FreedomRequestTimeoutError } from "../freedom/errors.js";
 import type { FreedomFilterList } from "../freedom/types.js";
 import type { AddDomainsResult, FreedomWriter } from "../freedom/writer.js";
 import { DEFAULT_BATCH_SIZE, MAX_BATCH_SIZE } from "../freedom/http-writer.js";

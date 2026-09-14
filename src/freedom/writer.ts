@@ -14,8 +14,6 @@ export interface FreedomWriter {
 
 export class UnsupportedFreedomWriter implements FreedomWriter {
   async addDomains(_listId: number, _domains: string[]): Promise<AddDomainsResult> {
-    throw new Error(
-      "Freedom writes are not implemented. Use HttpFreedomWriter or --dry-run.",
-    );
+    throw new Error("Freedom writes are not implemented. Use HttpFreedomWriter or --dry-run.");
   }
 }

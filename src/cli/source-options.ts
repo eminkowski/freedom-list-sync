@@ -31,10 +31,10 @@ export function buildParseOptions(input: {
   return options;
 }
 
-export function resolveSourceInput(options: {
-  source?: string;
+export function resolveSourceInput(options: { source?: string; sourceFile?: string }): {
+  sourceUrl?: string;
   sourceFile?: string;
-}): { sourceUrl?: string; sourceFile?: string } {
+} {
   const sourceUrl = options.source?.trim() || undefined;
   const sourceFile = options.sourceFile?.trim() || undefined;
   if (Boolean(sourceUrl) === Boolean(sourceFile)) {

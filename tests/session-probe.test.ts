@@ -1,9 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import {
-  FREEDOM_CURATED_FILTERS_URL,
-  extractAccountEmail,
-} from "../src/freedom/session-probe.js";
+import { FREEDOM_CURATED_FILTERS_URL, extractAccountEmail } from "../src/freedom/session-probe.js";
 
 describe("session probe", () => {
   it("uses curated_filters rather than filter_lists as the lightweight auth URL", () => {

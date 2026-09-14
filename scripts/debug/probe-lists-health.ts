@@ -12,9 +12,7 @@ import { buildAddDomainsHeaders } from "../../src/freedom/http-writer.js";
 async function main(): Promise<void> {
   const deleteIdx = process.argv.indexOf("--delete");
   const deleteId =
-    deleteIdx >= 0 && process.argv[deleteIdx + 1]
-      ? Number(process.argv[deleteIdx + 1])
-      : undefined;
+    deleteIdx >= 0 && process.argv[deleteIdx + 1] ? Number(process.argv[deleteIdx + 1]) : undefined;
 
   const context = await openFreedomContext({ headed: false });
   try {
@@ -26,11 +24,11 @@ async function main(): Promise<void> {
     console.log(`GET /filter_lists/ -> ${getAll.status()} (${allText.length} chars)`);
     if (getAll.ok()) {
       try {
-        const parsed = JSON.parse(allText) as { filter_lists?: Array<{ id: number; name: string; count_websites?: number }> };
+        const parsed = JSON.parse(allText) as {
+          filter_lists?: Array<{ id: number; name: string; count_websites?: number }>;
+        };
         for (const list of parsed.filter_lists ?? []) {
-          console.log(
-            `  ${list.id}\t${list.count_websites ?? "?"}\t${list.name}`,
-          );
+          console.log(`  ${list.id}\t${list.count_websites ?? "?"}\t${list.name}`);
         }
       } catch {
         console.log(allText.slice(0, 500));
@@ -46,7 +44,9 @@ async function main(): Promise<void> {
         timeout: 30_000,
       });
       const text = await one.text();
-      console.log(`GET /filter_lists/${id} -> ${one.status()} (${text.slice(0, 200).replace(/\s+/g, " ")})`);
+      console.log(
+        `GET /filter_lists/${id} -> ${one.status()} (${text.slice(0, 200).replace(/\s+/g, " ")})`,
+      );
     }
 
     if (deleteId !== undefined && Number.isFinite(deleteId)) {
@@ -56,7 +56,9 @@ async function main(): Promise<void> {
         failOnStatusCode: false,
         timeout: 30_000,
       });
-      console.log(`DELETE /filter_lists/${deleteId} -> ${del.status()} ${(await del.text()).slice(0, 200)}`);
+      console.log(
+        `DELETE /filter_lists/${deleteId} -> ${del.status()} ${(await del.text()).slice(0, 200)}`,
+      );
     }
   } finally {
     await closeFreedomContext(context);

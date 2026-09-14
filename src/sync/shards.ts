@@ -181,8 +181,7 @@ export function parseShardSize(
   options: { allowUnsafe?: boolean } = {},
 ): number {
   const allowUnsafe = options.allowUnsafe === true;
-  const value =
-    raw === undefined || raw.trim() === "" ? DEFAULT_SHARD_SIZE : Number(raw);
+  const value = raw === undefined || raw.trim() === "" ? DEFAULT_SHARD_SIZE : Number(raw);
 
   if (!Number.isInteger(value) || value <= 0) {
     throw new ShardSizeError(`Invalid --shard-size: ${raw ?? String(DEFAULT_SHARD_SIZE)}`);
@@ -209,10 +208,7 @@ export function shardDomainCount(list: FreedomFilterList): number {
   return listDomains(list).length;
 }
 
-export function computeShardCapacity(
-  currentCount: number,
-  shardSize: number,
-): ShardCapacity {
+export function computeShardCapacity(currentCount: number, shardSize: number): ShardCapacity {
   const oversized = currentCount > shardSize;
   const remaining = oversized ? 0 : Math.max(0, shardSize - currentCount);
   return {
@@ -440,9 +436,7 @@ export function formatShardedPlanReport(plan: ShardedSyncPlan): string {
     lines.push("");
     for (const allocation of plan.allocations) {
       const tag = allocation.isNew ? "  [new]" : "";
-      lines.push(
-        `${padName(allocation.name)}  +${formatNumber(allocation.domains.length)}${tag}`,
-      );
+      lines.push(`${padName(allocation.name)}  +${formatNumber(allocation.domains.length)}${tag}`);
     }
   }
 
@@ -453,9 +447,7 @@ export function formatShardedPlanReport(plan: ShardedSyncPlan): string {
       lines.push(`  ${name}`);
     }
     lines.push("");
-    lines.push(
-      "Note: live sync will create these lists automatically via POST /filter_lists/.",
-    );
+    lines.push("Note: live sync will create these lists automatically via POST /filter_lists/.");
   }
 
   return lines.join("\n");

@@ -1,17 +1,16 @@
 import { describe, expect, it } from "vitest";
 
 import { diffDomains } from "../src/sync/diff.js";
-import {
-  buildSyncPlan,
-  EmptySourceError,
-  FREEDOM_BATCH_SIZE,
-} from "../src/sync/sync.js";
+import { buildSyncPlan, EmptySourceError, FREEDOM_BATCH_SIZE } from "../src/sync/sync.js";
 import { chunk } from "../src/utils/batch.js";
 import type { FreedomFilterList } from "../src/freedom/types.js";
 
 describe("diffDomains", () => {
   it("computes additions, removals, and unchanged count", () => {
-    const diff = diffDomains(["a.com", "b.com", "c.com", "d.com"], ["a.com", "b.com", "manual.com"]);
+    const diff = diffDomains(
+      ["a.com", "b.com", "c.com", "d.com"],
+      ["a.com", "b.com", "manual.com"],
+    );
 
     expect(diff.additions).toEqual(["c.com", "d.com"]);
     expect(diff.removals).toEqual(["manual.com"]);

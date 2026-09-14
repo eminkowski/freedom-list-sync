@@ -10,15 +10,8 @@ import {
   isAuthenticationStatus,
   isRetryableFreedomStatus,
 } from "./errors.js";
-import {
-  buildAddDomainsHeaders,
-  isRetryableWriterError,
-} from "./http-writer.js";
-import {
-  FREEDOM_REQUEST_TIMEOUT_MS,
-  pathFromUrl,
-  runFreedomRequest,
-} from "./request.js";
+import { buildAddDomainsHeaders, isRetryableWriterError } from "./http-writer.js";
+import { FREEDOM_REQUEST_TIMEOUT_MS, pathFromUrl, runFreedomRequest } from "./request.js";
 import type { FreedomFilterList } from "./types.js";
 import type { Logger } from "../utils/logger.js";
 import { DEFAULT_BACKOFF_MS, withBackoff } from "../utils/sleep.js";
@@ -152,15 +145,12 @@ export class HttpFreedomListCreator implements FreedomListCreator {
   async createFilterList(name: string): Promise<FreedomFilterList> {
     const payload = buildCreateFilterListPayload(name);
 
-    return withBackoff(
-      async () => this.postWithCsrfRefresh(payload),
-      {
-        delaysMs: this.backoffMs,
-        shouldRetry: (error) => isRetryableWriterError(error),
-        ...(this.sleep ? { sleep: this.sleep } : {}),
-        ...(this.onRetry ? { onRetry: this.onRetry } : {}),
-      },
-    );
+    return withBackoff(async () => this.postWithCsrfRefresh(payload), {
+      delaysMs: this.backoffMs,
+      shouldRetry: (error) => isRetryableWriterError(error),
+      ...(this.sleep ? { sleep: this.sleep } : {}),
+      ...(this.onRetry ? { onRetry: this.onRetry } : {}),
+    });
   }
 
   private async postWithCsrfRefresh(payload: { name: string }): Promise<FreedomFilterList> {
@@ -190,10 +180,7 @@ export class HttpFreedomListCreator implements FreedomListCreator {
     return token;
   }
 
-  private async postOnce(
-    payload: { name: string },
-    csrfToken: string,
-  ): Promise<FreedomFilterList> {
+  private async postOnce(payload: { name: string }, csrfToken: string): Promise<FreedomFilterList> {
     const url = FREEDOM_FILTER_LISTS_URL;
     const path = pathFromUrl(url);
 

@@ -28,8 +28,7 @@ async function main(): Promise<void> {
     const report = {
       status,
       contentType,
-      topLevelKeys:
-        parsed && typeof parsed === "object" ? Object.keys(parsed as object) : [],
+      topLevelKeys: parsed && typeof parsed === "object" ? Object.keys(parsed as object) : [],
       summary,
       rawPreview: text.slice(0, 1500),
     };
@@ -65,9 +64,7 @@ function summarize(parsed: unknown): unknown {
           ? record.customFilters
           : [];
       const sampleFilter =
-        filters[0] && typeof filters[0] === "object"
-          ? Object.keys(filters[0] as object)
-          : [];
+        filters[0] && typeof filters[0] === "object" ? Object.keys(filters[0] as object) : [];
       return {
         keys: Object.keys(record),
         id: record.id,

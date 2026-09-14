@@ -17,17 +17,17 @@ parser cares about content shape, not the file extension.
 
 ## Status
 
-| Capability | Status |
-| --- | --- |
-| Authenticated Freedom reads | Supported |
-| Remote source parsing | Supported |
-| Diffing | Supported |
-| Dry-run sync | Supported |
-| HTTP additive writes | Supported |
-| Sharded logical targets | Supported |
+| Capability                  | Status                                       |
+| --------------------------- | -------------------------------------------- |
+| Authenticated Freedom reads | Supported                                    |
+| Remote source parsing       | Supported                                    |
+| Diffing                     | Supported                                    |
+| Dry-run sync                | Supported                                    |
+| HTTP additive writes        | Supported                                    |
+| Sharded logical targets     | Supported                                    |
 | Automatic new-list creation | Supported (`POST /filter_lists/` `{ name }`) |
-| Checkpoint/resume | Supported |
-| Mirror/removal sync | Not yet supported |
+| Checkpoint/resume           | Supported                                    |
+| Mirror/removal sync         | Not yet supported                            |
 
 ## Design notes
 
@@ -246,13 +246,13 @@ without changing sync logic.
 
 ### Supported
 
-| Format | Description |
-| --- | --- |
-| `hosts` | Hosts-file mappings such as `0.0.0.0 example.com` or `127.0.0.1 example.com` |
-| `domains` | One hostname per line |
-| `csv` | Comma-separated values; domain from a header or column index |
-| `json` | Simple JSON arrays / wrapped arrays / object arrays |
-| `auto` | Conservative detection among the formats above |
+| Format    | Description                                                                  |
+| --------- | ---------------------------------------------------------------------------- |
+| `hosts`   | Hosts-file mappings such as `0.0.0.0 example.com` or `127.0.0.1 example.com` |
+| `domains` | One hostname per line                                                        |
+| `csv`     | Comma-separated values; domain from a header or column index                 |
+| `json`    | Simple JSON arrays / wrapped arrays / object arrays                          |
+| `auto`    | Conservative detection among the formats above                               |
 
 #### Hosts format
 
@@ -309,10 +309,7 @@ Supported shapes:
 ```
 
 ```json
-[
-  { "domain": "facebook.com" },
-  { "domain": "instagram.com" }
-]
+[{ "domain": "facebook.com" }, { "domain": "instagram.com" }]
 ```
 
 ```bash
@@ -332,7 +329,7 @@ domain lists.
 - Excel / binary spreadsheets
 - Arbitrary nested JSON schemas beyond the shapes above
 - CSV without a recognizable domain header (unless `--domain-column` is set)
-When `auto` cannot confidently choose a format:
+  When `auto` cannot confidently choose a format:
 
 ```text
 Unable to confidently detect source format.
@@ -400,6 +397,7 @@ observed failures at much larger sizes. Adjust it if needed:
 npm test
 npm run lint
 npm run build
+npm run check   # test + lint + typecheck + format:check + build
 ```
 
 CLI helpers for inspecting live Freedom traffic:

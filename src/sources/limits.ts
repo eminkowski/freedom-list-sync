@@ -8,9 +8,7 @@ export class SourceTooLargeError extends Error {
       kind === "bytes"
         ? `Source is too large (${formatBytes(actual)} > ${formatBytes(limit)}).`
         : `Source produced too many domains (${actual.toLocaleString("en-US")} > ${limit.toLocaleString("en-US")}).`;
-    super(
-      `${formatted}\n\nIf this is intentional, raise the limit in code or split the source.`,
-    );
+    super(`${formatted}\n\nIf this is intentional, raise the limit in code or split the source.`);
     this.name = "SourceTooLargeError";
   }
 }

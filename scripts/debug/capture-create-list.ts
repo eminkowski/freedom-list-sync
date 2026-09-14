@@ -7,11 +7,7 @@
  *   npx tsx scripts/capture-create-list.ts
  *   npx tsx scripts/capture-create-list.ts --name "FLS Create Probe"
  */
-import {
-  FREEDOM_HOME_URL,
-  FREEDOM_ORIGIN,
-  getAuthStatePath,
-} from "../../src/freedom/auth.js";
+import { FREEDOM_HOME_URL, FREEDOM_ORIGIN, getAuthStatePath } from "../../src/freedom/auth.js";
 import { closeFreedomContext, openFreedomContext } from "../../src/freedom/client.js";
 import { readCsrfToken } from "../../src/freedom/csrf.js";
 import { createLogger } from "../../src/utils/logger.js";
@@ -104,9 +100,7 @@ async function main(): Promise<void> {
     captures.push({
       method,
       url: `${url.origin}${url.pathname}${url.search}`,
-      ...(request.postData()
-        ? { requestBody: sanitizeBody(request.postData() ?? undefined) }
-        : {}),
+      ...(request.postData() ? { requestBody: sanitizeBody(request.postData() ?? undefined) } : {}),
     });
     logger.info(`[req] ${method} ${url.pathname}${url.search}`);
   });
@@ -127,8 +121,11 @@ async function main(): Promise<void> {
       return;
     }
     const entry =
-      [...captures].reverse().find((c) => c.method === method && c.url.includes(url.pathname) && c.status === undefined) ??
-      captures[captures.length - 1];
+      [...captures]
+        .reverse()
+        .find(
+          (c) => c.method === method && c.url.includes(url.pathname) && c.status === undefined,
+        ) ?? captures[captures.length - 1];
     if (!entry) {
       return;
     }
@@ -185,7 +182,9 @@ async function main(): Promise<void> {
     logger.info(`Likely create success candidate(s): ${createCandidates.length}`);
   } else {
     logger.info("No clear successful POST filter_lists candidate yet.");
-    logger.info("If the browser is open, create the list manually, wait 2s, then Ctrl+C after logs.");
+    logger.info(
+      "If the browser is open, create the list manually, wait 2s, then Ctrl+C after logs.",
+    );
   }
 
   await closeFreedomContext(context);
@@ -204,8 +203,8 @@ async function tryCreateViaUi(
     'button:has-text("Add Blocklist")',
     'a:has-text("Add Blocklist")',
     'button:has-text("New List")',
-    'text=Create a Blocklist',
-    'text=New custom blocklist',
+    "text=Create a Blocklist",
+    "text=New custom blocklist",
   ];
 
   for (const selector of clickCandidates) {
@@ -249,7 +248,10 @@ async function tryCreateViaUi(
   // Navigate common blocklist paths.
   for (const path of ["/filter_lists", "/blocklists", "/filters", "/dashboard"]) {
     try {
-      await page.goto(`${FREEDOM_ORIGIN}${path}`, { waitUntil: "domcontentloaded", timeout: 10_000 });
+      await page.goto(`${FREEDOM_ORIGIN}${path}`, {
+        waitUntil: "domcontentloaded",
+        timeout: 10_000,
+      });
       await page.waitForTimeout(1000);
       for (const selector of clickCandidates) {
         const loc = page.locator(selector).first();
@@ -261,7 +263,9 @@ async function tryCreateViaUi(
         const nameInput = page.locator('input[type="text"], input[name*="name" i]').first();
         if ((await nameInput.count()) > 0) {
           await nameInput.fill(listName);
-          const save = page.locator('button:has-text("Create"), button:has-text("Save"), button[type="submit"]').first();
+          const save = page
+            .locator('button:has-text("Create"), button:has-text("Save"), button[type="submit"]')
+            .first();
           if ((await save.count()) > 0) {
             await save.click();
             await page.waitForTimeout(2500);
@@ -293,7 +297,11 @@ async function tryCreateViaApi(
   };
 
   const payloads: Array<{ label: string; url: string; body: unknown }> = [
-    { label: "POST /filter_lists/ {name}", url: `${FREEDOM_ORIGIN}/filter_lists/`, body: { name: listName } },
+    {
+      label: "POST /filter_lists/ {name}",
+      url: `${FREEDOM_ORIGIN}/filter_lists/`,
+      body: { name: listName },
+    },
     {
       label: "POST /filter_lists/ {filter_list.name}",
       url: `${FREEDOM_ORIGIN}/filter_lists/`,

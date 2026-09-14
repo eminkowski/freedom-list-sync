@@ -2,10 +2,7 @@ import type { Command } from "commander";
 
 import { isFreedomSessionCliError } from "../../freedom/auth.js";
 import { FreedomAuthenticationError } from "../../freedom/errors.js";
-import {
-  closeFreedomContext,
-  requireAuthenticatedSession,
-} from "../../freedom/client.js";
+import { closeFreedomContext, requireAuthenticatedSession } from "../../freedom/client.js";
 import { HttpFreedomWriter } from "../../freedom/http-writer.js";
 import {
   findFilterList,
@@ -24,11 +21,7 @@ export function registerProbeBatchCommand(program: Command): void {
     .command("debug:probe-batch")
     .description("Probe Freedom PATCH batch sizes (writes unique probe domains)")
     .requiredOption("--list <nameOrId>", "Freedom blocklist to probe")
-    .option(
-      "--sizes <csv>",
-      "Comma-separated batch sizes to try",
-      "10,25,50,75,100",
-    )
+    .option("--sizes <csv>", "Comma-separated batch sizes to try", "10,25,50,75,100")
     .option("--prefix <text>", "Domain prefix for probe hosts", "probe")
     .action(async (options: { list: string; sizes: string; prefix: string }) => {
       const logger = createLogger();

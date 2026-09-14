@@ -24,11 +24,7 @@ import {
   FreedomFilterListsUnavailableError,
   isRetryableFreedomStatus,
 } from "./errors.js";
-import {
-  FREEDOM_REQUEST_TIMEOUT_MS,
-  pathFromUrl,
-  runFreedomRequest,
-} from "./request.js";
+import { FREEDOM_REQUEST_TIMEOUT_MS, pathFromUrl, runFreedomRequest } from "./request.js";
 import { probeFilterListsHealth, probeFreedomSession } from "./session-probe.js";
 import type { FreedomFilterList } from "./types.js";
 import type { Logger } from "../utils/logger.js";
@@ -257,9 +253,7 @@ function normalizeFilterList(item: unknown, index: number): FreedomFilterList {
   const id = asNumber(record.id, `filter_lists[${index}].id`);
   const name = asString(record.name, `filter_lists[${index}].name`);
   const count =
-    asOptionalNumber(record.count_websites) ??
-    asOptionalNumber(record.countWebsites) ??
-    0;
+    asOptionalNumber(record.count_websites) ?? asOptionalNumber(record.countWebsites) ?? 0;
 
   const filtersRaw = record.custom_filters ?? record.customFilters ?? [];
   if (!Array.isArray(filtersRaw)) {

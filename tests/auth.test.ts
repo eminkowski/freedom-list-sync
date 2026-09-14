@@ -26,9 +26,9 @@ afterEach(() => {
 describe("auth helpers", () => {
   it("formats status reports for each state", () => {
     expect(formatAuthStatusReport("authenticated")).toContain("Session valid");
-    expect(
-      formatAuthStatusReport("authenticated", { listsHealthy: false }),
-    ).toContain("GET /filter_lists/ is currently failing");
+    expect(formatAuthStatusReport("authenticated", { listsHealthy: false })).toContain(
+      "GET /filter_lists/ is currently failing",
+    );
     expect(formatAuthStatusReport("expired")).toContain("freedom-list-sync login");
     expect(formatAuthStatusReport("missing")).toContain("no session");
     expect(formatAuthStatusReport("unavailable")).toContain(
