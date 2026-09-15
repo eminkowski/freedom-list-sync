@@ -11,3 +11,7 @@ test-results/
 .DS_Store
 *.log
 coverage/
+
+# Personal blocklists — keep local only
+blocklists/**
+!blocklists/README.md
