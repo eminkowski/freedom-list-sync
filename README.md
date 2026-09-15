@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="docs/banner.png" alt="freedom-list-sync — sync domain blocklists into Freedom" />
+</p>
+
 # freedom-list-sync
 
 `freedom-list-sync` syncs external domain blocklists into
